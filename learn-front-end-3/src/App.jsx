@@ -1,99 +1,85 @@
 import { Fragment } from 'react';
 
-// Header component for the application
-function HeaderComponent() {
-  return (
-    <header style={{ 
-      padding: '1rem', 
-      backgroundColor: '#f0f0f0', 
-      marginBottom: '1rem',
-      borderRadius: '4px'
-    }}>
-      <h1>My Social Feed</h1>
-    </header>
-  );
-}
+// Styles as JavaScript variables
+const styles = {
+  container: 'container mx-auto p-4',
+  header: 'text-2xl font-bold mb-4 text-blue-600',
+  card: 'bg-white rounded-lg shadow-md p-4 mb-4',
+  list: 'list-none space-y-2',
+  listItem: 'bg-gray-50 p-3 rounded border border-gray-200',
+  role: 'text-sm text-gray-600',
+  name: 'font-semibold text-gray-800'
+};
 
-// User profile component
-function ProfileComponent() {
-  return (
-    <div style={{ 
-      padding: '1rem', 
-      backgroundColor: '#e8f4f8', 
-      marginBottom: '1rem',
-      borderRadius: '4px'
-    }}>
-      <h2>User Profile</h2>
-      <p>Name: John Doe</p>
-      <p>Location: New York</p>
-      <p>Bio: React Developer</p>
-    </div>
-  );
-}
-
-// Individual post component
-function PostComponent({ title, content, author }) {
-  return (
-    <div style={{ 
-      padding: '1rem', 
-      backgroundColor: '#fff', 
-      marginBottom: '1rem',
-      borderRadius: '4px',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-    }}>
-      <h3>{title}</h3>
-      <p>{content}</p>
-      <small>Posted by: {author}</small>
-    </div>
-  );
-}
-
-// Feed component that contains multiple posts
-function FeedComponent() {
-  const posts = [
-    {
-      title: "Learning React",
-      content: "React is amazing for building user interfaces!",
-      author: "John Doe"
-    },
-    {
-      title: "Component Composition",
-      content: "Breaking down UI into reusable components is powerful.",
-      author: "Jane Smith"
-    },
-    {
-      title: "React Fragments",
-      content: "Using fragments helps keep the DOM clean.",
-      author: "John Doe"
-    }
+// User list component with JSX features
+function UserListComponent() {
+  // JavaScript array of users
+  const users = [
+    { id: 1, name: 'Nathan', role: 'Web Developer' },
+    { id: 2, name: 'John', role: 'Web Designer' },
+    { id: 3, name: 'Jane', role: 'Team Leader' },
+    { id: 4, name: 'Sarah', role: 'UX Designer' },
+    { id: 5, name: 'Mike', role: 'Backend Developer' }
   ];
 
+  // JavaScript expression to get total users
+  const totalUsers = users.length;
+  
+  // JavaScript expression to get current time
+  const currentTime = new Date().toLocaleTimeString();
+
   return (
-    <div style={{ 
-      padding: '1rem', 
-      backgroundColor: '#f8f8f8', 
-      borderRadius: '4px'
-    }}>
-      <h2>Recent Posts</h2>
-      {posts.map((post, index) => (
-        <PostComponent 
-          key={index}
-          title={post.title}
-          content={post.content}
-          author={post.author}
-        />
-      ))}
+    <div className={styles.container}>
+      {/* Using JavaScript expressions in JSX */}
+      <h1 className={styles.header}>
+        Active Users ({totalUsers})
+      </h1>
+      
+      {/* Using JavaScript expressions for dynamic content */}
+      <p className="text-gray-600 mb-4">
+        Last updated: {currentTime}
+      </p>
+
+      {/* Using map() to render a list */}
+      <ul className={styles.list}>
+        {users.map(function(user) {
+          return (
+            <li 
+              key={user.id} 
+              className={styles.listItem}
+            >
+              <span className={styles.name}>{user.name}</span>
+              <span className={styles.role}> as the {user.role}</span>
+            </li>
+          );
+        })}
+      </ul>
+
+      {/* Example of conditional rendering using JavaScript expression */}
+      <div className="mt-4 p-3 bg-gray-100 rounded">
+        <p>
+          {totalUsers > 3 
+            ? 'We have a large team!' 
+            : 'We are a small team'}
+        </p>
+      </div>
     </div>
   );
 }
 
-// Main App component that composes all other components
+// Main App component
 function App() {
+  // JSX can be assigned to variables
+  const header = <h1 className="text-3xl font-bold text-center my-4">Team Dashboard</h1>;
+  
+  // JavaScript expression in className
+  const isDarkMode = false;
+  const containerClass = `app-container ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`;
+
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
-      <HeaderComponent />
-      <ProfileComponent />
-      <FeedComponent />
+    <div className={containerClass}>
+      {header}
+      <UserListComponent />
     </div>
   );
 }
